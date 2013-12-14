@@ -1,0 +1,91 @@
+// lab2.1.cpp : Defines the entry point for the console application.
+//http://books.google.pl/books?id=C3_WIQOYE2EC&lpg=PA447&ots=G7UeVIb8BR&dq=cmovnae%20asembler&pg=PA37#v=onepage&q=cmovnae%20asembler&f=false
+#include "stdafx.h"
+#include <iostream>
+
+using namespace std;
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	int a;
+	int b;
+	cout << "Podaj a: ";
+	cin >> a;
+	cout << "Podaj b: ";
+	cin >> b;
+	int x=0;
+	int wynik=0;
+
+	__asm {
+/*	nie moje 	push eax;
+		push ebx;
+		mov eax, a;
+		mov ebx, b;
+		add eax, ebx;
+		mov wynik, eax;
+		pop eax;
+		pop ebx;
+*/
+/*		mov eax, a; //porównuje & if
+		mov ebx, b;
+		xor ecx, ecx; //to samo co wpisanie 0
+		cmp eax, ebx;
+		jnl waz;
+		sub ebx, eax;
+		mov ecx, ebx;
+waz: mov x, ecx;
+*/
+/*
+		mov eax, a; 
+		mov ebx, b;
+		cmp eax, ebx;
+		jnl waz;
+		sub ebx, eax;
+		mov ecx, ebx;
+		jmp pomin;
+waz: sub eax, ebx;
+		mov ecx, eax;
+pomin: mov x, ecx;
+*/
+/*		mov eax, a;  // ?zly wynik?
+		mov ebx, b;
+		xor ecx, ecx;
+		cmp eax, ebx;
+		jng waz;
+		imul ebx, ebx;
+		sub ebx, eax;
+		mov ecx, ebx;
+waz: mov x, ecx;
+*/
+/*		mov eax, a;  //3z.2
+		mov ebx, b;
+		xor ecx, ecx;
+		cmp eax, ebx;
+		jnge waz;
+		imul ebx, ebx;
+		add eax, ebx;
+		jmp pomin;
+waz: imul eax, eax;
+		sub eax, ebx;
+pomin: mov x, eax;
+*/
+		//inna metoda
+/*		mov eax, a;  //3z.2 ok, jesli da sie to bez skokow
+		imul eax, eax;
+		mov ebx, b;
+		mov ecx, ebx;
+		neg ecx;
+		cmp eax, ebx;
+		cmovl ebx, ecx; //conditional move if less
+		add eax, ebx;
+		mov x, eax;
+*/
+		//5z3 w domu 
+
+
+	}
+	cout << "Wynik to: " << x << endl;
+	system("PAUSE");
+	return 0;
+}
+

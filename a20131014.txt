@@ -1,0 +1,48 @@
+// lab00001.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+using namespace std;
+
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	int a=-10;
+//	cin>>a;
+	int b=-20;
+//	cin>>b;
+	int wynik=0;
+	int max=0;
+//	int x=10;
+	__asm {
+		/* push ebx;
+		mov eax, a;
+		mov ebx, b;
+		add eax, ebx;
+		mov wynik, eax;
+		pop ebx;
+		*/
+		/*
+		mov eax, a;
+		add eax, b;
+		mov wynik, eax;
+		*/
+
+		push ebx;
+		mov eax, a;
+		mov ebx, b;
+		cmp eax, ebx;
+		jng waz; //jae, jnc, jnb | na mniejsza: jna, jbe, jc ||| ujemne jge, jnl  |  jng, jle
+		mov eax, ebx;
+waz: mov max, eax;
+		pop ebx;
+
+
+
+	}
+	cout<< "Wynik = "<<wynik<<endl<<"Wieksza jest= "<< max <<endl;
+	system( "PAUSE" );
+	return 0;
+}
+

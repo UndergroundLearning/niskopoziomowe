@@ -1,0 +1,142 @@
+#include "stdafx.h"
+#include <iostream>
+
+
+using namespace std;
+
+void usun(int ** A, unsigned int n, unsigned int m)
+{
+	for(unsigned int i = 0; i<n; i++)
+	{
+		delete [] A[i];
+	}
+	delete A;
+}
+
+int _tmain(int argc, _TCHAR* argv[]) 
+	{
+	int suma=0;
+	int ** A;
+	int ** B;
+	int ** C;
+	unsigned int n1 = 5; //wiersze
+	unsigned int n2 = 5; // kolumny
+	unsigned int n3 = 5; 
+	unsigned int m = 5; 
+
+
+	A = new int*[n1];
+	for(unsigned int i = 0; i< n1; i++)
+	{
+		A[i] = new int [n2];
+	}
+	B = new int *[n2];
+	for(unsigned int i = 0; i< n2 ; i++)
+	{
+		B[i] = new int [n3];
+	}
+	C = new int *[n1];
+	for(unsigned int i = 0; i< n1 ; i++)
+	{
+		C[i] = new int [n2];
+	}
+	for( unsigned int i = 0; i< n1; i++)
+	{
+		for(unsigned int j = 0; j < n2 ; j++)
+		{
+			A[i][j] = 1; 
+		}
+	}
+	for( unsigned int i = 0; i< n2; i++)
+	{
+		for(unsigned int j = 0; j < n3 ; j++)
+		{
+			B[i][j] = 2; 
+		}
+	}
+	for( unsigned int i = 0; i< n1; i++)
+	{
+		for(unsigned int j = 0; j < n2 ; j++)
+		{
+			C[i][j] = 0; 
+		}
+	}
+
+	cout << "MACIERZ A: " << endl;
+	for(unsigned int i = 0; i<n1; i++)
+	{
+		for(unsigned int j = 0; j< n2; j++)
+		{
+			cout << A[i][j] << " " ;
+		}
+		cout << endl;
+	}
+	cout << endl;
+	cout << endl;
+	cout << "MACIERZ B:" << endl;
+	for(unsigned int i = 0; i<n2; i++)
+	{
+		for(unsigned int j = 0; j< n3; j++)
+		{
+			cout << B[i][j] << " " ;
+		}
+		cout << endl;
+	}
+	cout << endl;
+	cout << endl;
+	//n1 wiersze macierz1, n3 kol w m, n2 kol 1.m i wiesz 2. m, 
+		__asm{
+		push edi;
+		push esi;
+		push ebx;
+		mov ecx, n1;
+for11:
+		push ecx;
+		mov ecx, n3;
+for33:
+		mov ebx, 0;
+		mov esi, A;
+		mov eax, [esp]; //pobranie z wierzcholka stosu
+		mov esi, [esi+4*eax-4];
+		push ecx;
+		mov ecx, n2;
+for22:
+		mov edi, B;
+		mov eax, [esp];
+		mov edi, [edi+4*ecx-4];
+		mov eax, [edi+4*eax-4];
+		mul [esi+4*ecx-4];
+		mul [esi+4*ecx-4];
+		add ebx, eax;
+	loop for22;
+		pop ecx;
+		mov esi, C;
+		mov eax, [esp];
+		mov esi, [esi+4*eax-4];
+		mov [esi+4*ecx-4], ebx;
+	loop for33;
+		pop ecx;
+	loop for11;
+
+	pop ebx;
+	pop esi;
+	pop edi;
+		}
+
+		for(unsigned int i=0; i<n1; i++) {
+			for(unsigned int j=0; j<n2; j++) {
+			cout<<C[i][j]<<" ";
+			}
+			cout<<endl;
+		}
+
+
+	cout<<endl<<"suma to "<<suma<<endl;
+
+	usun(A, n1, n2);
+	usun(B, n2, n3);
+	usun(C, n1, n2);
+	system("PAUSE");
+	return 0;
+
+}

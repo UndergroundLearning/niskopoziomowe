@@ -1,0 +1,47 @@
+#include "stdafx.h"
+#include <iostream>
+
+using namespace std;
+
+int _tmain(int argc, _TCHAR* argv[]) {
+	int a=10;
+	int b=20;
+	int x=1;
+	int y;
+/*
+	__asm {
+		mov eax,0xaaff;
+		mov ebx,eax;
+		inc eax;
+		inc eax;
+		dec ecx;
+		dec eax;
+		add a, eax;
+		add b, eax;
+
+		mov eax,a;
+		mov ebx,b;
+		add eax,b;
+		cmp eax, ebx;
+		sub eax,b;
+		mul ecx;
+		}
+*/
+
+	__asm {
+		push ebx;
+		mov eax,a;
+		mov ebx,b;
+		mov ecx,x;
+		mul ecx;
+		add eax,ebx;
+		mov y,eax;
+		pop ebx;
+	}
+
+	cout<<y<<endl;
+
+	system("PAUSE");
+	return 0;
+
+}

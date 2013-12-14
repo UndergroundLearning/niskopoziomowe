@@ -1,0 +1,154 @@
+#include "stdafx.h"
+#include <iostream>
+
+using namespace std;
+
+int _tmain(int argc, _TCHAR* argv[]) {
+	int m=4;
+	int wynik=0;
+	int *n = new int [m];
+	int *n2 = new int [m];
+	for (unsigned int i=0; i<m; ++i) {
+		n[i]=2;
+	}
+	for (unsigned int j=0; j<m; ++j) {
+		n2[j]=2;
+	}
+//	n[2]=1;
+
+	__asm {
+	//suma elelementow wektora
+/*		push edi;
+		mov edi, n;
+		mov ecx, m;
+		xor eax, eax;
+petla:
+		add eax, [edi+4*ecx-4];
+		loop petla;
+		mov wynik, eax;
+		pop edi;
+*/			//inaczej 
+
+/*		push edi;
+		mov edi, n;
+		mov ecx, m;
+		xor eax, eax;
+petla:
+		add eax, [edi+4*ecx-4];
+		dec ecx;
+		jnz petla;
+		mov wynik, eax;
+		pop edi;
+*/			//zerowanie tablicy
+/*		push edi;
+		mov edi, n;
+		mov ecx, m;
+		xor eax, eax;
+petla:
+		mov [edi+4*ecx-4], eax;
+		dec ecx;
+		jnz petla;
+		pop edi;
+*/		// znajdz wartosc maksimum 
+/*		push edi;
+		mov edi, n;
+		mov ecx, m;
+		mov eax, [edi+4*ecx-4]; //maksimum
+		dec ecx;
+petla:
+		cmp eax, [edi+4*ecx-4];
+		jge dalej;
+		mov eax, [edi+4*ecx-4];
+dalej:
+		dec ecx;
+		jnz petla;
+		mov wynik, eax;
+		pop edi;
+*/ //warosc minimum
+/*		push edi;
+		mov edi, n;
+		mov ecx, m;
+		mov eax, [edi+4*ecx-4]; //min
+		dec ecx;
+petla:
+		cmp eax, [edi+4*ecx-4];
+		jle dalej; //dla ze znakiem
+		mov eax, [edi+4*ecx-4];
+dalej:
+		dec ecx;
+		jnz petla;
+		mov wynik, eax;
+		pop edi;
+*/	//iloczyn skalarny, nie zadzia³a dla mo¿enia powy¿ej 32 bitów
+		push ebx;
+		push edi;
+		mov esi, n;
+		mov edi, n2;
+		mov ecx, m;
+		xor edx, edx;
+petla:
+		mov eax, [edi+4*ecx-4];
+		imul eax, [edi+4*ecx-4];
+		add edx, [edi+4*ecx-4];
+		dec ecx;
+		jnz petla;
+		mov wynik, edx;
+		pop edi;
+		pop ebx;
+	}
+
+	for (unsigned i=0; i<m; ++i) {
+				cout<< n[i] <<" ";
+	}
+	cout<<"tablica 2: ";
+	for (unsigned j=0; j<m; ++j) {
+				cout<< n[j] <<" ";
+	}
+	cout<<"wynik: "<<wynik<<endl;
+	delete [] n;
+
+	system("PAUSE");
+	return 0;
+
+}
+
+
+
+
+
+
+
+
+
+
+ZNOWU LISTA 5
+mono¿enie macierzy przez wektor
+
+
+
+		mov ebx, W;
+		mov edx, n;
+		mov edi, M;
+p2:		mov esi, [edi+4*edx-4]; //wektor wskaujacy na ost wiersz
+		xor eax, eax;
+		mov ecx, m;
+		push edx; //bo braklo rejestrow
+p1: 
+		mov edx, [esi+4*ecx-4];
+		imul edx, [ebx+4*ecx-4];
+		add eax, edx;
+		loopp1;
+		pop edx;
+		push ebx;...
+
+
+
+
+
+
+
+
+
+
+
+

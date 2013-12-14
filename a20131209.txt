@@ -1,0 +1,95 @@
+/* na kolo!!!!!!!! :
+znajomosc instrukcji
+zadania z lab
+przyklady z wykladu
+*/
+//fsubp odjejmuje i zdejmuje ze stosu
+//zad 3 w domu rozmiar wektora ma byv 100tysiecy
+
+
+
+#include "stdafx.h"
+#include <iostream>
+/* #include <iomanip>
+#include <cstdlib>
+#include <time.h>
+*/ 
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+	double d, x, a, b, c, z;
+	double y=0;
+	a=1;
+	b=2;
+	c=3;
+	d=4;
+	x=1;
+	y=0;
+	z=0;
+
+	__asm{
+	/*	//program 1
+		fld d;
+		fld x;
+		fld st;
+		fmul st,st(1);
+		fld st(1);
+		fmul st,st(1);
+		fmul a;
+		faddp st(3), st;
+		fmul b;
+		faddp st(2), st;
+		fmul c;
+		fadd ;
+		fstp y;
+	*/
+/*		//program 2
+		fld a;
+		fld c;
+		fld b;
+		fld st;
+		fsub st, st(3);
+		fmul st, st(2); //tutaj jest teraz c(b-a),b,c,a 
+		fxch ; //b,c(b-a), c,a
+		fsubp st(2), st; //c(b-a), c-b, a
+		fxch st(2) ; //a, c-b,c(b-a)
+		fmul st(1), st ; //
+		fld1 ; //
+		fsub ;
+		fld st;
+		fmul st, st(1);
+		fmul ;
+		fmul x;
+		fadd ;
+		fadd ;
+		fstp y;
+*/ //program 3
+		fld c;
+		fld b;
+		fld a; //a,b,c
+		fmul; // ab, c
+		fmul; //abc
+		fstp y;
+		fld c;
+		fmul b; //b*c
+		fadd st, st;
+		fld c;
+		fmul a;
+		fadd st,st; //2ca, 2bc
+		fadd; //2ca+2bc
+		fstp z;
+
+	} 
+	cout<<endl<<y<<endl<<z<<endl<<endl;
+
+//do program 2:	y=(a-1)*(a-1)*(a-1)*x+c*(b-a)+a*(c-b);
+/* do programu 3
+	y=a*b*c;
+	z=2*c*(b+a);
+*/
+	cout<<y<<endl<<z<<endl;
+
+	system("PAUSE");
+  return 0;
+} 

@@ -1,0 +1,199 @@
+tnij.org/asembler555
+http://wklej.org/id/1181133/
+
+
+
+
+#include "stdafx.h"
+#include <iostream>
+
+
+using namespace std;
+
+void usun(int ** A, unsigned int n, unsigned int m)
+{
+	for(unsigned int i = 0; i<n; i++)
+	{
+		delete [] A[i];
+	}
+	delete A;
+}
+
+int _tmain(int argc, _TCHAR* argv[]) 
+	{
+	int suma=0;
+	int ** A;
+	int ** B;
+	int ** C;
+	unsigned int n = 5; //wiersze
+	unsigned int m = 5; // kolumny
+
+
+	A = new int*[n];
+	for(unsigned int i = 0; i< n; i++)
+	{
+		A[i] = new int [m];
+	}
+
+	B = new int *[n];
+	for(unsigned int i = 0; i< n ; i++)
+	{
+		B[i] = new int [m];
+	}
+	C = new int *[n];
+	for(unsigned int i = 0; i< n ; i++)
+	{
+		C[i] = new int [m];
+	}
+	for( unsigned int i = 0; i< n; i++)
+	{
+		for(unsigned int j = 0; j < m ; j++)
+		{
+			A[i][j] = i; 
+			B[i][j] = 2*i;
+			C[i][j] = 0;
+
+		}
+	}
+	cout << "MACIERZ A: " << endl;
+	for(unsigned int i = 0; i<n; i++)
+	{
+		for(unsigned int j = 0; j< m; j++)
+		{
+			cout << A[i][j] << " " ;
+		}
+		cout << endl;
+	}
+	cout << endl;
+	cout << endl;
+	cout << "MACIERZ B:" << endl;
+	for(unsigned int i = 0; i<n; i++)
+	{
+		for(unsigned int j = 0; j< m; j++)
+		{
+			cout << B[i][j] << " " ;
+		}
+		cout << endl;
+	}
+	cout << endl;
+	cout << endl;
+
+		__asm{
+
+			push esi; // r wiersz, k kolumna, macierze a, b, wynikowa= c
+			push ebx;
+			push edi;
+			xor eax, eax;
+			mov edx, n;
+pz:			mov esi, A;
+			mov ebx, B;
+			mov edi, C;
+			mov esi, [esi+4*edx-4];
+			mov ebx, [ebx+4*edx-4];
+			mov edi, [edi+4*edx-4];
+			mov ecx, m;
+pw:			mov eax, [esi+4*ecx-4];
+			add eax, [ebx+4*ecx-4];
+			mov [edi+4*ecx-4], eax;
+			dec ecx;
+			jnz pw;
+			dec edx;
+			jnz pz;
+			pop edi;
+			pop ebx;
+			pop esi;
+			mov suma, eax;
+
+		}
+
+		for(unsigned int i=0; i<n; i++) {
+			for(unsigned int j=0; j<m; j++) {
+			cout<<C[i][j]<<" ";
+			}
+			cout<<endl;
+		}
+
+
+	cout<<endl<<"suma to "<<suma<<endl;
+
+	usun(A, n, m);
+	usun(B, n, m);
+	usun(C, n, m);
+	system("PAUSE");
+	return 0;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//zadanie 2 lista6 
+
+
+
+
+
+		__asm{
+
+		mov ecx, n1;
+		mov esi, a;
+		mov esi, [esi];
+		mov esi, [esi];
+		mov eax, [esi];
+		mov esi, a;
+L1:		push ecx;
+		mov ecx, n2;
+		mov edi, [esi+4*ecx-4];
+L2:		pushecx;
+		mov ecx, n3;
+		mov ebx, [edi+4*ecx-4];
+L3:		cmp eax, [ebx+4*ecx-4];
+		jle s1;
+		mov eax, [ebx+4*ecx-4];
+s1:		loop L3;
+		pop ecx;
+		loop L2;
+		pop ecx;
+		loop L1;
+
+
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

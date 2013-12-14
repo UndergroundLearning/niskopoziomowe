@@ -1,0 +1,82 @@
+#include "stdafx.h"
+#include <iostream>
+
+using namespace std;
+
+int _tmain(int argc, _TCHAR* argv[]) {
+	int n=4;
+//	int b=20;
+//	int x=1;
+	int wynik=0;
+
+//		mul ecx;
+	int *pion=new int;
+	int **m=new 
+	__asm {
+		//jnz jump not zero, loop sam zmniejsza o 1, 
+		//silnia
+/*		mov wynik, 1;
+		mov eax, n;
+		mov ecx, eax;
+		sub ecx, 1;
+		jbe skok1;
+skok2:
+		imul eax, ecx;
+		dec ecx;
+		jnz skok2;	
+skok1:
+		mov wynik, eax;
+		*/ //silnia z pentli loop, ale nie dziala szybciej
+/*		mov wynik, 1;
+		mov eax, n;
+		mov ecx, eax;
+		sub ecx, 1;
+		jbe skok1;
+skok2:
+		imul eax, ecx;
+		loop skok2;
+skok1:
+		mov wynik, eax;
+*/
+		// w domu li3 z8 p5 tak jak zad3.
+		//lista 4, suma macierzy, trzeba dopisaæ w c++ stworzenie macierzy
+		xor eax, eax;
+		mov ecx, n1;
+		mov esi, m;
+p1:
+		mov edx, n2;
+		mov edi, [esi];
+pw:
+		add eax, [edi];
+		add edi, 4;
+		dec edx;
+		jnz pw;
+		add esi, 4; //wskaŸniki 4 elementowe 
+		dec ecx;
+		jnz p1;
+		mov wynik, eax;
+		// lub 
+/*		xor eax, eax;
+		mov ecx, n1;
+		mov esi, m;
+p1:
+		mov edx, n2;
+		mov edi, [esi];
+pw:
+		add eax, [edi];
+		mov edi, [esi+4*ecx-4]; //
+		dec edx;
+		jnz pw;
+		add eax, [edi+4*edx-4]; //
+		dec ecx;
+		jnz p1;
+		mov wynik, eax;
+*/	}
+	
+
+	cout<<wynik<<endl;
+
+	system("PAUSE");
+	return 0;
+
+}
